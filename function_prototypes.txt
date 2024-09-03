@@ -1,0 +1,235 @@
+Initalize B+ Tree{int m}{
+
+    1. Set order to m
+
+    2. Set root to null pointer
+    
+    3. Done
+
+}
+
+Insert B+ Tree(int key, double value){
+
+    1. If tree is empty create a new leaf node containing key,value pair
+    1.1 Set root to new leaf node
+
+    2. Check if root is a leaf
+    2.1 Insert key,value into leaf root
+    2.2 If node is overfilled split root
+    -- creating new internal root node with two leaf children
+
+    3. Else search down tree to find proper leaf insertion node
+        3.1 Save path along the way
+        3.2 Insert into leaf node
+        3.3 Update doubly linked list pointers of leaf nodes if necessary
+        3.4 If not full we are Done
+        3.5 Recuse up the tree along path splitting nodes as necessary 
+        -- This will re-balance the tree 
+        -- This requires both an internal node and leaf node insert and split algorithm
+
+    4. Done
+}
+
+Insert Leaf Node(int key, double value){
+
+    1. Find place in key and pointer array to insert new key and pointer
+
+    2. Make sure insertion is not a duplicate
+
+    3. Perform insertion
+
+    4. See if splitting is necessary
+        3.1 If so split node
+
+    5. Else Done
+}
+
+Split Leaf Node(){
+
+    1. Determine half-point in key array
+
+    2. Split keys and values in place into original node and new right node
+    -- Determined by half-point
+
+    3. Return split key and new right node
+}
+
+
+Insert Internal Node(int key, Node* pointer){
+
+    1. Find place in key and pointer array to insert new key and pointer
+
+    2. Perform insertion
+
+    3. See if splitting is necessary
+        3.1 If so split node
+
+    4. Else Done
+}
+
+Split Internal Node(){
+
+    1. Determine half-point in key array
+
+    2. Split keys and pointers in place into original node and new right node
+    -- Determined by half-point
+
+    3. Return split key and new right node
+}
+
+
+Delete B+ Tree  (int key){
+
+    1. If tree is empty do nothing; Done
+
+    2. If root is a leaf do a leaf node delete; Done
+
+    3. Else search for leaf node to delete from 
+        3.1 Save path
+
+    4. Delete from leave node
+        4.1 If key does not exist; Done
+        4.2 If leaf node is not deficient; Done
+
+    5. If deficient we have to re-balance the tree
+
+    6. See if we can borrow from left sibling
+        6.1 Borrow keys and values; Done
+    
+    7. See if we can borrow from right sibling
+        7.1 Borrow keys and values; Done
+
+    8. See if we can collapse with left sibling
+        8.1 Collapse deletion node into left sibling
+        8.2 Update leaf doubly linked list pointers 
+        8.3 Recurse up the path of internal nodes to re-balance
+
+    9. Else we must be able to collapse with right sibling
+        9.1 Collapse right sibling into deletion node
+        9.2 Update leaf doubly linked list pointers
+        9.3 Recurse up path of internal nodes to re-balance 
+
+    10. Done
+}
+
+Rebalnce Internal Nodes after Delete B+ Tree(Node* node, Node* del, path){
+
+    1. Find pointer to del to delete from node
+
+    2. Delete proper key and del from node
+
+    3. Check if node is an empty root
+        3.1 Update root to single child of deficient root
+        3.2 Discard old root
+        3.3 Done
+
+    4. If node is not deficient; Done
+
+    5.If node is deficient we need to re-balance the tree
+
+    
+    6. See if we can borrow from left sibling
+        6.1 Borrow keys and pointers; Done
+    
+    7. See if we can borrow from right sibling
+        7.1 Borrow keys and pointers; Done
+
+    8. See if we can collapse with left sibling
+        8.1 Collapse node into left sibling
+        8.2 Recurse up the path of remaining internal nodes to re-balance
+
+    9. Else we must be able to collapse with right sibling
+        9.1 Collapse right sibling into node
+        9.2 Recurse up path of internal nodes to re-balance 
+
+    10. Done
+} 
+
+Delete Key Value Leaf Node(int key){
+
+    1. Find correct index to delete after
+
+    2. Delete key value if exists
+
+    3. Return true if deficient, false if not
+
+}
+
+Find Left Internal Node(Node* n){
+
+    1. Find pointer to node n in pointers array
+
+    2. Return pointer to left sibling if it exists
+        2.1 Else return null pointer
+
+}
+
+
+Find Right Internal Node(Node* n){
+
+    -- Symmetric to Find Left
+
+}
+
+Search B+ Tree(int key){
+
+    1. If tree is empty return nan
+
+    2. Else search down tree until we hit a leaf
+
+    3. Get the value from the leaf node
+
+    4. Return the values
+
+}
+
+Find Value Leaf Node(int key){
+
+    1. Find key index if it exists
+
+    2. Return nan if search fails; else return value at index
+
+}
+
+Get Next Internal Node(int key){
+
+    1. Find correct pointer according to search by key
+
+    2. Return pointer
+
+}
+
+Range Search B+ Tree(int key1, int key2){
+
+    1. Create result vector
+
+    2. Make sure key1 <= key 2
+        2.1 If not Return empty vector
+    
+    3. Search down the tree until we hit a leaf
+
+    4. Collect values in vector
+        4.1 Examine node key array, add values to vector until we hit key > key2
+        4.2 Use linked list of leaves to get next node
+
+    5. Return result vector 
+
+}
+
+int main(num args, args list){
+
+    1. Make sure proper number of arguments are input
+
+    2. Read in command file line by line into vector of strings
+
+    3. Create output file to write out search query results to
+
+    4. Read first line of input command file to initialize tree
+
+    5. Loop through the rest of the commands in command vector
+        5.1. Decode command and retrieve arguments
+        5.2 Run command on initialized tree 
+        5.3 Write output as necessary
+    
+    6. Done
+}
